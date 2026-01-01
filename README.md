@@ -1,5 +1,9 @@
 # Weather ETL Pipeline
 
+
+## Architecture
+![Architecture Diagram](docs/weather_pipeline_architecture.png)
+
 This project implements an incremental ETL workflow for collecting hourly weather forecasts, moving data from **Weatherbit API → MongoDB → Airbyte → MotherDuck**.
 It covers the full data engineering process from ingestion to analytics-ready datasets.
 
