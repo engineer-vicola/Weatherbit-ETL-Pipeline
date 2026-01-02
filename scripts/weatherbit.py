@@ -1,9 +1,7 @@
 import logging
 import os
-from datetime import datetime, timezone
-from urllib.parse import quote_plus
-
 import requests
+from datetime import datetime, timezone
 from dotenv import load_dotenv
 from pymongo import MongoClient, UpdateOne
 
@@ -13,6 +11,7 @@ logging.basicConfig(
 )
 
 load_dotenv()
+
 
 API_KEY  = os.getenv("API_KEY")
 BASE_URL = os.getenv("url")
@@ -28,7 +27,7 @@ MONGO_URI = (
 )
 
 
-def convert_utc_iso(timespec):
+def convert_utc_iso(timespec="seconds"):
     utc_now = datetime.now(timezone.utc)
     iso_str = utc_now.isoformat(timespec=timespec)
     return iso_str.replace('+00:00', 'Z')
@@ -146,7 +145,7 @@ def upsert(collection, docs):
 def main():
     try:
         with MongoClient(MONGO_URI) as client:
-            db = client.get_default_database()
+            db = client.get_default_database()["weather"]
             collection = db["weather"]
 
             indexes(collection)
